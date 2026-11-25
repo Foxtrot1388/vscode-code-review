@@ -320,6 +320,12 @@
           "description": "Define whether to include private comments in generated reports or not.",
           "default": false
         },
+        "code-review.reportHighlightLanguage": {
+          "type": "string",
+          "title": "Programming language for code highlighting in HTML reports",
+          "description": "A highlight.js language identifier (e.g. \"1c\", \"javascript\", \"sql\") used to syntax-highlight the code selection in HTML reports. The highlighting is rendered with inline styles, so it keeps working when the report is pasted into an e-mail (e.g. Outlook). Leave empty to disable highlighting.",
+          "default": "1c"
+        },
         "code-review.defaultTemplatePath": {
           "type": "string",
           "title": "The path to a default Handlebars template to be used for HTML default export",
@@ -522,6 +528,7 @@
     "common-tags": "^1.8.2",
     "git-commit-id": "^2.0.1",
     "handlebars": "^4.7.9",
+    "highlight.js": "^11.11.1",
     "js-base64": "^3.7.8",
     "uuid": "^14.0.0"
   }

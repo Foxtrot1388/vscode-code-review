@@ -35,12 +35,6 @@
       margin: 0
     }
 
-    code {
-      border: 1px solid #999;
-      display: block;
-      white-space: pre-wrap;
-    }
-
     /* links in headlines */
     h3.lines-headline>a {
       color: #005bbb;
@@ -137,17 +131,11 @@
         <td class="text">{{line.additional}}</td>
       </tr>
       {{/if}}
-      {{#if line.sha}}
-      <tr class="row-sha">
-        <td class="caption">SHA</td>
-        <td class="text">{{line.sha}}</td>
-      </tr>
-      {{/if}}
       {{#if line.code}}
       <tr class="row-code">
         <td class="caption">Code</td>
         <td class="text">
-          <pre><code id="code-block-{{@../index}}-{{@index}}">{{codeBlock line.code}}</code></pre>
+          <pre style="margin:0;padding:8px;border:1px solid #d0d7de;font-family:Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;white-space:pre-wrap;"><code id="code-block-{{@../index}}-{{@index}}">{{codeBlock line.code}}</code></pre>
         </td>
       </tr>
       {{/if}}

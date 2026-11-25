@@ -36,6 +36,7 @@ import { CsvEntry, CsvStructure } from './model';
 import { CommentListEntry } from './comment-list-entry';
 import { FileGenerator } from './file-generator';
 import { Location, parseLocation, themeColorForPriority } from './utils/editor-utils';
+import { highlightCode } from './utils/highlight-util';
 const gitCommitId = require('git-commit-id');
 
 type SortT = -1 | 0 | 1;
@@ -95,6 +96,7 @@ export class ExportFactory {
   private groupBy: GroupBy;
   private includeCodeSelection = false;
   private includePrivateComments = false;
+  private highlightLanguage = '';
   private privateCommentIcon: string;
   private filterByCommit: boolean = false;
   private currentCommitId: string | null = null;
@@ -169,8 +171,15 @@ export class ExportFactory {
               });
           }
 
-          // Helper that decodes the Base64 content to be displayed in the handlebar
-          handlebars.registerHelper('codeBlock', (code: string) => decode(code));
+          // Helper that decodes the Base64 content and highlights it with inline styles,
+          // so the coloring also works in e-mail clients like Outlook
+          handlebars.registerHelper('codeBlock', (code: string) => {
+            const decoded = decode(code);
+            if (!this.highlightLanguage) {
+              return decoded;
+            }
+            return new handlebars.SafeString(highlightCode(decoded, this.highlightLanguage));
+          });
           // compile template after helper is registered
           const templateCompiled = handlebars.compile(templateData);
           // inject date into the template
@@ -371,6 +380,7 @@ export class ExportFactory {
     this.groupBy = groupByConfig as GroupBy;
     this.includeCodeSelection = workspace.getConfiguration().get('code-review.reportWithCodeSelection') as boolean;
     this.includePrivateComments = workspace.getConfiguration().get('code-review.reportWithPrivateComments') as boolean;
+    this.highlightLanguage = (workspace.getConfiguration().get('code-review.reportHighlightLanguage') as string) ?? '';
     this.privateCommentIcon = workspace.getConfiguration().get('code-review.privateCommentIcon') as string;
 
     this.filterByCommit = workspace.getConfiguration().get('code-review.filterCommentsByCommit') as boolean;

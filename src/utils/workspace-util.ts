@@ -70,7 +70,9 @@ export const getFileContentForRange = (pathToFile: string, range: Range): string
   } catch (error) {
     console.log('Error reading file', pathToFile, error);
   }
-  const fileContentLines = fileContent.split(EOL);
+  // Split on any line ending: files with LF endings (e.g. checked out from Git)
+  // must not be treated as a single line when running on Windows.
+  const fileContentLines = fileContent.split(/\r\n|\r|\n/);
   return fileContentLines.slice(range.start.line, range.end.line).join(EOL);
 };
 

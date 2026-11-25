@@ -34,6 +34,7 @@ This extension allows you to create a code review file you can hand over to a cu
   - [`code-review.groupBy`](#code-reviewgroupby)
   - [`code-review.categories`](#code-reviewcategories)
   - [`code-review.reportWithCodeSelection`](#code-reviewreportwithcodeselection)
+  - [`code-review.reportHighlightLanguage`](#code-reviewreporthighlightlanguage)
   - [`code-review.reportWithPrivateComments`](#code-reviewreportwithprivatecomments)
   - [`code-review.privateCommentIcon`](#code-reviewprivatecommenticon)
   - [`code-review.defaultTemplatePath`](#code-reviewdefaulttemplatepath)
